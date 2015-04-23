@@ -1,0 +1,42 @@
+%p#notice= notice
+
+%p
+  %b Корзина:
+  = @order.cart.id
+%p
+  %b Пользователь:
+  = link_to "#{@order.user.email}", user_path(id: @order.user.id)
+%p
+  %b Адрес:
+  = @order.address
+%p
+  %b Статус:
+  = @statuses[@order.status-1]
+%p
+  %b Комментарий:
+  = @order.comment
+%p
+  %b Список товаров:
+  .row
+    - @order.cart.line_items.each do |item|
+      .col-md-3
+        .list-group
+          .list-group-item.active
+            .fa.fa-pencil.li
+              #{item.product.name}
+          .list-group-item
+            .fa.fa-info-circle.li
+              #{item.product.description}
+          .list-group-item
+            .fa.fa-ruble.li
+              #{number_to_currency(item.price*item.quantity, separator: ",", delimiter: "", format: "%n")}
+          .list-group-item
+            .fa.fa-tags.li
+              #{item.quantity} шт
+          .list-group-item
+            .fa.fa-download.li
+              #{number_to_human(item.product.weight*item.quantity, units: {unit: "г", thousand: "кг"})}
+
+= link_to 'Редактировать', edit_order_path(@order)
+\|
+= link_to 'Назад', orders_path

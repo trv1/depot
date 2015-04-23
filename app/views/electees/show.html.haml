@@ -1,0 +1,44 @@
+%p#notice= notice
+.page-header
+  .fa.fa-shopping-cart.fa-4x.li
+    Ваше избранное
+
+.row
+  .col-md-3
+    .list-group
+      .list-group-item.active
+        .fa.fa-pencil.li
+          Название
+      .list-group-item
+        .fa.fa-info-circle.li
+          Описание
+      .list-group-item
+        .fa.fa-ruble.li
+          Цена
+      .list-group-item
+        .fa.fa-download.li
+          Вес
+
+.row
+  - @electee.items.each do |item|
+    .col-md-3
+      .list-group
+        .list-group-item.active
+          .fa.fa-pencil.li
+            #{item.product.name}
+        .list-group-item
+          .fa.fa-info-circle.li
+            #{item.product.description}
+        .list-group-item
+          .fa.fa-ruble.li
+            #{number_to_currency(item.price, separator: ",", delimiter: "", format: "%n")}
+        .list-group-item
+          .fa.fa-download.li
+            #{number_to_human(item.product.weight, units: {unit: "г", thousand: "кг"})}
+        .list-group-item
+          .fa.fa-remove.li
+            =link_to 'Удалить', item, method: :delete, data: {:confirm => 'Вы уверены?'}
+
+= link_to 'Очистить избранное', @electee, data:{method: :delete, confirm: "Вы уверены?"}, class: "btn btn-primary"
+\|
+= link_to 'Вернуться к выбору товаров', products_path, class: "btn btn-info"

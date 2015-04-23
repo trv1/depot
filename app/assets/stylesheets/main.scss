@@ -1,0 +1,13 @@
+$body-bg: #eee;
+$brand-primary: #2dcc70;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+.field_with_errors {
+  @extend .has-error;
+}
+
+.alert-notice {
+  @extend .alert-success;
+}

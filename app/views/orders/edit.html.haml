@@ -1,0 +1,23 @@
+%h1 Редактирование заказа
+
+= form_for @order do |f|
+  =error_messages_for(@order)
+  .form-group
+    = label_tag('order[user_id]', Order.human_attribute_name(:user_id))
+    .br
+    = select_user('order[user_id]', @order.user_id)
+  .form-group
+    = label_tag('order[status]', Order.human_attribute_name(:status))
+    .br
+    = select_status('order[status]', @order.status)
+  .form-group
+    =f.label :address
+    =f.text_area :address, class: "form-control", rows: 3
+  .form-group
+    =f.label :comment
+    =f.text_area :comment, class: "form-control", rows: 3
+  .actions=f.submit nil, class: "btn btn-primary"
+
+= link_to 'Показать', @order
+\|
+= link_to 'Назад', orders_path

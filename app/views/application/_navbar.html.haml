@@ -1,0 +1,23 @@
+%nav.navbar.navbar-default
+  .container
+    .navbar-header
+      =link_to ?#, class: "navbar-toggle collapsed", data: {toggle: "collapse", target:"#menu"} do
+        =fa_icon 'bars'
+      =link_to "Магазин", root_path, class: "navbar-brand"
+    #menu.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        - if !session[:user_id].blank? && User.find(session[:user_id]).role==0
+          %li=link_to "Корзина", @cart
+          %li=link_to "Избранное", @electee
+        - if !session[:user_id].blank? && User.find(session[:user_id]).role!=0
+          %li=link_to "Заказы", orders_path
+      %ul.nav.navbar-nav.navbar-right
+        - if session[:user_id].blank?
+          %li=link_to 'Войти', login_path
+          %li=link_to "Зарегистрироваться", new_user_path
+        - else
+          %li
+            %span.navbar-text
+              .text-info=@current_user.email
+          %li
+            =link_to "Выйти", logout_path, data:{method: :patch}

@@ -1,0 +1,21 @@
+%h1 Listing electees
+
+%table
+  %thead
+    %tr
+      %th User
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @electees.each do |electee|
+      %tr
+        %td= electee.user
+        %td= link_to 'Show', electee
+        %td= link_to 'Edit', edit_electee_path(electee)
+        %td= link_to 'Destroy', electee, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Electee', new_electee_path

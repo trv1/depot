@@ -1,0 +1,8 @@
+.page-header
+  %h1 Оформление заказа
+= form_for @order do |f|
+  =error_messages_for(@order)
+  .form-group
+    =f.label :address
+    =f.text_area :address, class: "form-control", rows: 3
+  .actions=f.submit nil, class: "btn btn-primary"
